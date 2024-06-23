@@ -6,7 +6,7 @@ export default function MyMap({ data }) {
     console.log(add);
     return (
         <Map height={350} defaultCenter={add} defaultZoom={5}>
-            <Marker width={50} anchor={add} />
+            <Marker width={30} anchor={add} />
         </Map>
     );
 }

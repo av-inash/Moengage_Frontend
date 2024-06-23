@@ -1,9 +1,11 @@
+
+
 import React, { useState } from "react";
-import "./Login.css"; // Import the CSS file
+import "./Login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import logo from "../logo/WhatsApp Image 2023-07-12 at 9.58.35 AM.png";
+
 
 
 const LoginPage = () => {
@@ -19,7 +21,7 @@ const LoginPage = () => {
             if (admin.isAdmin) {
                 navigate("/admin");
             } else {
-                navigate("/dashboard");
+                navigate("/home");
             }
         }
     };
@@ -28,7 +30,7 @@ const LoginPage = () => {
         let isValid = true;
         const errors = {};
 
-        // Email validation
+
         if (!email) {
             isValid = false;
             errors.email = "Email is required";
@@ -37,7 +39,7 @@ const LoginPage = () => {
             errors.email = "Email is invalid";
         }
 
-        // Password validation
+
         if (!password) {
             isValid = false;
             errors.password = "Password is required";
@@ -55,29 +57,29 @@ const LoginPage = () => {
                 email,
                 password,
             };
-            //this code i working fine///
-            // axios
-            //   .post("http://13.127.37.70:5000/api/v1/signin", userData)
-            //   .then((response) => {
-            //     console.log("Login successful!");
-            //     console.log(response.data);
-            //     localStorage.setItem("user_322", JSON.stringify(response.data.data));
-            //     handleLogin();
-            //   })
-            //   .catch((error) => {
-            //     console.error("Error during login:", error.response?.data);
 
-            //     if (
-            //       error.response &&
-            //       error.response.data &&
-            //       error.response.data.message
-            //     ) {
-            //       setErrors({ general: error.response.data.message });
-            //     } else {
-            //       setErrors({ general: "An error occurred during login." });
-            //     }
-            //   });
-            //////////////////////////////////////////////////////////////////////////////////
+            axios
+                .post("https://moengage-two.vercel.app/api/v1/users/login", userData)
+                .then((response) => {
+                    console.log("Login successful!");
+                    console.log(response.data.data);
+                    localStorage.setItem("user_322", JSON.stringify(response.data.data));
+                    handleLogin();
+                })
+                .catch((error) => {
+                    console.error("Error during login:", error.response?.data);
+
+                    if (
+                        error.response &&
+                        error.response.data &&
+                        error.response.data.message
+                    ) {
+                        setErrors({ general: error.response.data.message });
+                    } else {
+                        setErrors({ general: "An error occurred during login." });
+                    }
+                });
+
             if (email === "1@2.com" && password === "123") {
                 const upadated = { ...userData, isAdmin: true };
                 localStorage.setItem("user_322", JSON.stringify(upadated));
@@ -93,7 +95,7 @@ const LoginPage = () => {
         <>
 
 
-            <div className="login-container">
+            <div className="login-container" style={{ paddingTop: "7rem" }}>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Email:</label>
@@ -124,7 +126,7 @@ const LoginPage = () => {
                     </p>
                 </form>
             </div>
-            {/* <Footer /> */}
+
         </>
     );
 };
